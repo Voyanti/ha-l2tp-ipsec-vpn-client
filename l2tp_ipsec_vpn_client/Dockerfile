@@ -12,10 +12,10 @@ RUN set -x && \
     && touch /var/run/xl2tpd/l2tp-control
 
 
-    COPY ipsec.conf /etc/ipsec.conf
-    COPY ipsec.secrets /etc/ipsec.secrets
-    COPY xl2tpd.conf /etc/xl2tpd/xl2tpd.conf
-    COPY options.l2tpd.client /etc/ppp/options.l2tpd.client
-    COPY run.sh /
-    
-    CMD ["/run.sh"]
+COPY ipsec.conf /etc/ipsec.conf
+COPY ipsec.secrets /etc/ipsec.secrets
+COPY xl2tpd.conf /etc/xl2tpd/xl2tpd.conf
+COPY options.l2tpd.client /etc/ppp/options.l2tpd.client
+COPY run.sh /
+
+CMD ["/run.sh"]
