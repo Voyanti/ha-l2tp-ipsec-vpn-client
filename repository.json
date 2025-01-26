@@ -1,0 +1,11 @@
+{
+    "name": "L2TP/IPsec VPN Client Repository",
+    "url": "https://github.com/Voyanti/ha-l2tp-ipsec-vpn-client",
+    "maintainer": "Heinrich",
+    "homeassistant": "2023.1.0",
+    "arch": [
+      "amd64",
+      "armv7",
+      "aarch64"
+    ]
+  }
