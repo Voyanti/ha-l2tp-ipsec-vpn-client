@@ -10,6 +10,12 @@ RUN apk add --no-cache \
     iptables \
     iproute2
 
+
+COPY ipsec.conf /etc/ipsec.conf
+COPY ipsec.secrets /etc/ipsec.secrets
+COPY xl2tpd.conf /etc/xl2tpd/xl2tpd.conf
+COPY options.l2tpd.client /etc/ppp/options.l2tpd.client
+
 # Copy original scripts if you want them, or your own adapted scripts
 # (Here's a minimal approach using run.sh below)
 COPY run.sh /usr/local/bin/run.sh

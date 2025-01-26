@@ -1,5 +1,5 @@
 name: "L2TP/IPsec VPN Client"
-version: "1.0.6"
+version: "1.0.7"
 slug: "l2tp_ipsec_vpn_client"
 description: "Home Assistant add-on wrapping the l2tp-ipsec-vpn-client"
 url: "https://github.com/Voyanti/ha-l2tp-ipsec-vpn-client/l2tp_ipsec_vpn_client"
