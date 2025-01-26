@@ -1,18 +1,18 @@
 name: "L2TP/IPsec VPN Client"
-version: "1.0.3"
+version: "1.0.4"
 slug: "l2tp_ipsec_vpn_client"
 description: "Home Assistant add-on wrapping the l2tp-ipsec-vpn-client"
 url: "https://github.com/Voyanti/ha-l2tp-ipsec-vpn-client"
+init: false
 arch:
   - amd64
   - armv7
   - aarch64
 startup: services
 boot: auto
-privileged: true  # Needed for IPsec / PPP kernel modules
-host_network: true # So VPN traffic is managed directly on host network
+privileged: true
+host_network: true
 
-# These are configuration options the user can set in the Add-on UI.
 options:
   server: "vpn.example.com"
   psk: "MY_PRESHARED_KEY"
@@ -24,7 +24,6 @@ options:
   refuse_eap: "yes"
   refuse_pap: "no"
 
-# Validate the user input with a JSON schema
 schema:
   server: str
   psk: str
