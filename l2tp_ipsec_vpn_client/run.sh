@@ -47,6 +47,10 @@ echo "=== /etc/ppp/options.l2tpd.client ==="
 cat /etc/ppp/options.l2tpd.client
 echo
 
+echo "=== /etc/ppp/chap-secrets ==="
+cat /etc/ppp/chap-secrets
+echo
+
 # startup ipsec tunnel
 ipsec initnss
 sleep 1
