@@ -1,5 +1,9 @@
 ipcp-accept-local
 ipcp-accept-remote
+refuse-eap
+refuse-chap
+refuse-pap
+require-mschap-v2
 noccp
 noauth
 idle 1800
