@@ -1,7 +1,11 @@
 ipcp-accept-local
 ipcp-accept-remote
+refuse-eap
+refuse-chap
+refuse-pap
+require-mschap-v2
 noccp
-idle 1800
+idle 3600
 mtu 1450
 mru 1450
 defaultroute
