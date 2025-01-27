@@ -54,9 +54,7 @@ sleep 5
 #sleep 1
 #ipsec auto --add L2TP-PSK
 #sleep 1
-ipsec up L2TP-PSK
-ipsec down L2TP-PSK
-ipsec reload
+ipsec auto --up L2TP-PSK
 sleep 3
 ipsec --status
 sleep 3
