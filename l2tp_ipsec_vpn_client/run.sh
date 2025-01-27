@@ -56,10 +56,8 @@ ipsec initnss
 sleep 1
 ipsec pluto --stderrlog --config /etc/ipsec.conf
 sleep 5
-#ipsec setup start
-#sleep 1
-#ipsec auto --add L2TP-PSK
-#sleep 1
+ipsec auto --add L2TP-PSK
+sleep 1
 ipsec auto --up L2TP-PSK
 sleep 3
 ipsec --status
