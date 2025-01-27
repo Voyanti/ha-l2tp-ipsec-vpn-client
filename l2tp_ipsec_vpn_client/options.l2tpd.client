@@ -1,9 +1,5 @@
 ipcp-accept-local
 ipcp-accept-remote
-refuse-eap
-refuse-chap
-refuse-pap
-require-mschap-v2
 noccp
 idle 1800
 mtu 1450
