@@ -6,8 +6,8 @@ refuse-pap
 require-mschap-v2
 noccp
 idle 3600
-mtu 1450
-mru 1450
+mtu 1400
+mru 1400
 defaultroute
 usepeerdns
 debug
