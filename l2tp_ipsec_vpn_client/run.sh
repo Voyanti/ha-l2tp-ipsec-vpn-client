@@ -27,6 +27,24 @@ sed -i 's/lns = .*/lns = '$VPN_SERVER'/' /etc/xl2tpd/xl2tpd.conf
 sed -i 's/name .*/name '$VPN_USER'/' /etc/ppp/options.l2tpd.client
 sed -i 's/password .*/password '$VPN_PASS'/' /etc/ppp/options.l2tpd.client
 
+
+# --- PRINT THE RESULTING FILES ---
+echo "=== /etc/ipsec.conf ==="
+cat /etc/ipsec.conf
+echo
+
+echo "=== /etc/ipsec.secrets ==="
+cat /etc/ipsec.secrets
+echo
+
+echo "=== /etc/xl2tpd/xl2tpd.conf ==="
+cat /etc/xl2tpd/xl2tpd.conf
+echo
+
+echo "=== /etc/ppp/options.l2tpd.client ==="
+cat /etc/ppp/options.l2tpd.client
+echo
+
 # startup ipsec tunnel
 ipsec initnss
 sleep 1
