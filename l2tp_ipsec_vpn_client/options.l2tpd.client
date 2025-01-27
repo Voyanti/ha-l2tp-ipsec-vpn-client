@@ -5,7 +5,6 @@ refuse-chap
 refuse-pap
 require-mschap-v2
 noccp
-noauth
 idle 1800
 mtu 1450
 mru 1450
