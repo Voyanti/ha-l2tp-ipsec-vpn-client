@@ -27,7 +27,7 @@ echo '%any %any : PSK "'$VPN_PSK'"' > /etc/ipsec.secrets
 sed -i 's/lns = .*/lns = '$VPN_SERVER'/' /etc/xl2tpd/xl2tpd.conf
 # sed -i 's/name .*/name '$VPN_USER'/' /etc/ppp/options.l2tpd.client
 # sed -i 's/password .*/password '$VPN_PASS'/' /etc/ppp/options.l2tpd.client
-echo "*    $VPN_USER    \"$VPN_PASS\"    *" >> /etc/ppp/chap-secrets
+echo "$VPN_USER * \"$VPN_PASS\" *" > /etc/ppp/chap-secrets
 
 
 # --- PRINT THE RESULTING FILES ---
