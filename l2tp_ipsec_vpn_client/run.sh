@@ -48,11 +48,11 @@ echo
 
 echo "Starting StrongSwan VPN connection..."
 
-# Start StrongSwan (Pluto is specific to Libreswan, so we use StrongSwan commands)
+# Start StrongSwan
 ipsec start
 sleep 5  # Allow time for IPsec to initialize
 
-# Bring up the IPsec tunnel using StrongSwan
+# Load the IPsec tunnel configuration and bring it up
 ipsec up L2TP-IPsec
 sleep 3  # Allow time for negotiation
 
@@ -60,17 +60,17 @@ sleep 3  # Allow time for negotiation
 ipsec status
 sleep 3
 
-# Ensure the control file directory exists before writing
+# Ensure the control file directory exists
 mkdir -p /var/run/xl2tpd
 
 # Start xl2tpd in debug mode (-D)
 echo "Starting xl2tpd..."
-exec /usr/sbin/xl2tpd -D -c /etc/xl2tpd/xl2tpd.conf &
+/usr/sbin/xl2tpd -D -c /etc/xl2tpd/xl2tpd.conf &
 
-# Wait and then send the connection command to xl2tpd
+# Wait for xl2tpd to start before sending the connection command
 sleep 7
 echo "c myVPN" > /var/run/xl2tpd/l2tp-control
 echo "VPN connection started."
 
-# Keep container running (prevents Docker from exiting)
-tail -f /dev/null
+# Keep the container running by tailing the logs
+exec tail -F /var/log/syslog
