@@ -46,31 +46,22 @@ echo "=== /etc/ppp/chap-secrets ==="
 cat /etc/ppp/chap-secrets
 echo
 
-echo "Starting StrongSwan VPN connection..."
+echo "Restarting StrongSwan and xl2tpd services..."
+sudo systemctl restart strongswan-starter.service
+sudo systemctl restart xl2tpd.service
 
-# Start StrongSwan
-ipsec start
-sleep 5  # Allow time for IPsec to initialize
+echo "Starting VPN connection..."
 
-# Load the IPsec tunnel configuration and bring it up
+# Bring up the IPsec tunnel
 ipsec up L2TP-IPsec
-sleep 3  # Allow time for negotiation
-
-# Show the current status of IPsec connections
-ipsec status
-sleep 3
 
 # Ensure the control file directory exists
 mkdir -p /var/run/xl2tpd
 
-# Start xl2tpd in debug mode (-D)
-echo "Starting xl2tpd..."
-/usr/sbin/xl2tpd -D -c /etc/xl2tpd/xl2tpd.conf &
+# Start xl2tpd and connect to the L2TP tunnel
+xl2tpd-control -d connect-lac L2TP-IPsec
 
-# Wait for xl2tpd to start before sending the connection command
-sleep 7
-echo "c myVPN" > /var/run/xl2tpd/l2tp-control
 echo "VPN connection started."
 
-# Keep the container running by tailing the logs
+# Keep the container running
 exec tail -F /var/log/syslog
