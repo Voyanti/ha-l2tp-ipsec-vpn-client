@@ -7,11 +7,6 @@ VPN_SERVER=$(jq -r '.server' "$CONFIG_PATH")
 VPN_PSK=$(jq -r '.psk' "$CONFIG_PATH")
 VPN_USER=$(jq -r '.username' "$CONFIG_PATH")
 VPN_PASS=$(jq -r '.password' "$CONFIG_PATH")
-IDLE=$(jq -r '.idle' "$CONFIG_PATH")
-REQUIRE_CHAP=$(jq -r '.require_chap' "$CONFIG_PATH")
-REFUSE_CHAP=$(jq -r '.refuse_chap' "$CONFIG_PATH")
-REFUSE_EAP=$(jq -r '.refuse_eap' "$CONFIG_PATH")
-REFUSE_PAP=$(jq -r '.refuse_pap' "$CONFIG_PATH")
 
 echo "Starting L2TP/IPsec VPN Client ..."
 echo "VPN Server: $VPN_SERVER"
