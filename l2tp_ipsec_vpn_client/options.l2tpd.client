@@ -2,6 +2,8 @@ ipcp-accept-local
 ipcp-accept-remote
 refuse-eap
 require-mschap-v2
+require-mppe
+require-mppe-128
 noccp
 noauth
 idle 1800
