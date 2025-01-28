@@ -47,8 +47,8 @@ cat /etc/ppp/chap-secrets
 echo
 
 echo "Restarting StrongSwan and xl2tpd services..."
-sudo systemctl restart strongswan-starter.service
-sudo systemctl restart xl2tpd.service
+systemctl restart strongswan-starter.service
+systemctl restart xl2tpd.service
 
 echo "Starting VPN connection..."
 
