@@ -46,18 +46,31 @@ echo "=== /etc/ppp/chap-secrets ==="
 cat /etc/ppp/chap-secrets
 echo
 
-# Start StrongSwan (Pluto is specific to Libreswan)
-ipsec start
-sleep 5
+echo "Starting StrongSwan VPN connection..."
 
-# Load connection configurations
-ipsec up L2TP-PSK
-sleep 3
+# Start StrongSwan (Pluto is specific to Libreswan, so we use StrongSwan commands)
+ipsec start
+sleep 5  # Allow time for IPsec to initialize
+
+# Bring up the IPsec tunnel using StrongSwan
+ipsec up L2TP-IPsec
+sleep 3  # Allow time for negotiation
 
 # Show the current status of IPsec connections
 ipsec status
 sleep 3
 
-# startup xl2tpd ppp daemon then send it a connect command
-(sleep 7 && echo "c myVPN" > /var/run/xl2tpd/l2tp-control) &
-exec /usr/sbin/xl2tpd -p /var/run/xl2tpd.pid -c /etc/xl2tpd/xl2tpd.conf -C /var/run/xl2tpd/l2tp-control -D
+# Ensure the control file directory exists before writing
+mkdir -p /var/run/xl2tpd
+
+# Start xl2tpd in debug mode (-D)
+echo "Starting xl2tpd..."
+exec /usr/sbin/xl2tpd -D -c /etc/xl2tpd/xl2tpd.conf &
+
+# Wait and then send the connection command to xl2tpd
+sleep 7
+echo "c myVPN" > /var/run/xl2tpd/l2tp-control
+echo "VPN connection started."
+
+# Keep container running (prevents Docker from exiting)
+tail -f /dev/null
