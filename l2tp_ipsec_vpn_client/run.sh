@@ -54,7 +54,7 @@ ipsec start
 sleep 5  # Allow time for StrongSwan to initialize
 
 echo "Bringing up the PSK tunnel..."
-ipsec up L2TP-PSK
+ipsec up L2TP-IPsec
 
 sleep 3  # Allow time for negotiation
 
@@ -67,10 +67,10 @@ sleep 7  # Give xl2tpd some time to start
 # Preferred method
 if command -v xl2tpd-control &> /dev/null; then
     echo "Using xl2tpd-control to initiate the connection..."
-    xl2tpd-control -d connect-lac L2TP-PSK
+    xl2tpd-control -d connect-lac L2TP-IPsec
 else
     echo "xl2tpd-control not found, using fallback method..."
-    echo "c L2TP-PSK" > /var/run/xl2tpd/l2tp-control
+    echo "c L2TP-IPsec" > /var/run/xl2tpd/l2tp-control
 fi
 
 echo "VPN connection started."
