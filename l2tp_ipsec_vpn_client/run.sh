@@ -48,12 +48,6 @@ echo
 
 
 
-echo "Stopping any existing StrongSwan and xl2tpd processes..."
-pkill -f charon
-pkill -f xl2tpd
-
-sleep 2
-
 echo "Starting StrongSwan VPN connection..."
 ipsec start
 
