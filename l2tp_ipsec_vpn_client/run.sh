@@ -46,16 +46,16 @@ echo "=== /etc/ppp/chap-secrets ==="
 cat /etc/ppp/chap-secrets
 echo
 
-# startup ipsec tunnel
-ipsec initnss
-sleep 1
-ipsec pluto --stderrlog --config /etc/ipsec.conf
+# Start StrongSwan (Pluto is specific to Libreswan)
+ipsec start
 sleep 5
-ipsec auto --add L2TP-PSK
-sleep 1
-ipsec auto --up L2TP-PSK
+
+# Load connection configurations
+ipsec up L2TP-PSK
 sleep 3
-ipsec --status
+
+# Show the current status of IPsec connections
+ipsec status
 sleep 3
 
 # startup xl2tpd ppp daemon then send it a connect command

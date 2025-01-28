@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 RUN set -x && \
     apk add --no-cache \
               openrc \
-              libreswan \
+              strongswan \
               xl2tpd \
               ppp \
     && mkdir -p /var/run/pluto \
