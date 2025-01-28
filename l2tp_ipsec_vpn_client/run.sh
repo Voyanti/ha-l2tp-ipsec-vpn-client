@@ -48,12 +48,14 @@ echo
 
 
 
+
+
 echo "Starting StrongSwan VPN connection..."
 ipsec start
 
 sleep 5  # Allow time for StrongSwan to initialize
 
-echo "Bringing up the PSK tunnel..."
+echo "Bringing up the IPsec tunnel..."
 ipsec up L2TP-IPsec
 
 sleep 3  # Allow time for negotiation
@@ -71,6 +73,14 @@ if command -v xl2tpd-control &> /dev/null; then
 else
     echo "xl2tpd-control not found, using fallback method..."
     echo "c L2TP-IPsec" > /var/run/xl2tpd/l2tp-control
+fi
+
+sleep 5
+
+# Debugging PPPD if it exits
+if ! pgrep -x "pppd" > /dev/null; then
+    echo "pppd has exited. Checking logs..."
+    cat /var/log/syslog | grep pppd | tail -20
 fi
 
 echo "VPN connection started."
