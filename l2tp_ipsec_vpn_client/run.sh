@@ -46,20 +46,40 @@ echo "=== /etc/ppp/chap-secrets ==="
 cat /etc/ppp/chap-secrets
 echo
 
-# startup ipsec tunnel
-ipsec initnss
-sleep 1
-ipsec pluto --stderrlog --config /etc/ipsec.conf
-sleep 5
-#ipsec setup start
-#sleep 1
-#ipsec auto --add L2TP-PSK
-#sleep 1
-ipsec auto --up L2TP-PSK
-sleep 3
-ipsec --status
-sleep 3
 
-# startup xl2tpd ppp daemon then send it a connect command
-(sleep 7 && echo "c myVPN" > /var/run/xl2tpd/l2tp-control) &
-exec /usr/sbin/xl2tpd -p /var/run/xl2tpd.pid -c /etc/xl2tpd/xl2tpd.conf -C /var/run/xl2tpd/l2tp-control -D
+
+echo "Stopping any existing StrongSwan and xl2tpd processes..."
+pkill -f charon
+pkill -f xl2tpd
+
+sleep 2
+
+echo "Starting StrongSwan VPN connection..."
+ipsec start
+
+sleep 5  # Allow time for StrongSwan to initialize
+
+echo "Bringing up the PSK tunnel..."
+ipsec up L2TP-PSK
+
+sleep 3  # Allow time for negotiation
+
+echo "Starting xl2tpd..."
+mkdir -p /var/run/xl2tpd
+xl2tpd -D &
+
+sleep 7  # Give xl2tpd some time to start
+
+# Preferred method
+if command -v xl2tpd-control &> /dev/null; then
+    echo "Using xl2tpd-control to initiate the connection..."
+    xl2tpd-control -d connect-lac L2TP-PSK
+else
+    echo "xl2tpd-control not found, using fallback method..."
+    echo "c L2TP-PSK" > /var/run/xl2tpd/l2tp-control
+fi
+
+echo "VPN connection started."
+
+# Keep the container running
+exec tail -f /dev/null
