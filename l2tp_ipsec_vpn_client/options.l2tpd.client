@@ -1,17 +1,21 @@
 ipcp-accept-local
 ipcp-accept-remote
-refuse-eap
+refuse-pap
+refuse-chap
+refuse-mschap
 require-mschap-v2
 require-mppe
 require-mppe-128
 noccp
 noauth
 idle 1800
-mtu 1410
-mru 1410
+mtu 1400
+mru 1400
 defaultroute
 usepeerdns
 debug
 connect-delay 5000
 name myuser@myhost.com
 password myuserpassword
+nobsdcomp
+nodeflate
